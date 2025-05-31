@@ -1,0 +1,6 @@
+Django>=5.2,<6.0
+djangorestframework>=3.15
+mysqlclient>=2.2
+django-cors-headers>=4.3
+# Optional, for image handling (if you use ImageFields in the future)
+Pillow>=10.0

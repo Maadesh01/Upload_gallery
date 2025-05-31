@@ -135,6 +135,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3000",  # Allow Next.js frontend
+    "http://192.168.1.105:3001",  # Allow Next.js frontend on local network
 ]
 
 # Media settings for image uploads
