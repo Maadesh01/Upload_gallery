@@ -77,14 +77,16 @@ WSGI_APPLICATION = 'photo_app.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+from decouple import config
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'photo_app_db',
-        'USER': 'django_user',  # Should match the user
-        'PASSWORD': 'Maadesh@20',  # Replace with the correct password
-        'HOST': 'localhost',
-        'PORT': '3306',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST', default='localhost'),
+        'PORT': config('DB_PORT', default='3306'),
     }
 }
 
@@ -135,7 +137,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3000",  # Allow Next.js frontend
-    "http://192.168.1.105:3001",  # Allow Next.js frontend on local network
 ]
 
 # Media settings for image uploads
@@ -144,3 +145,4 @@ MEDIA_ROOT = BASE_DIR / 'media'
 
 # Custom login URL for redirects
 LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = '/api/upload'
