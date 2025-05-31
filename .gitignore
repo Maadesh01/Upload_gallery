@@ -1,0 +1,75 @@
+# Python/Django
+*.pyc
+__pycache__/
+db.sqlite3
+*.sqlite3
+*.log
+*.pot
+*.py[cod]
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.env
+.env.*
+.venv/
+venv/
+instance/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+.DS_Store
+
+# Django media/static (if not versioned)
+media/
+staticfiles/
+static/
+
+# VSCode
+.vscode/
+
+# Node/Next.js
+node_modules/
+.next/
+out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+*.tsbuildinfo
+
+# Yarn/PNPM/NPM
+.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# Coverage
+coverage/
+coverage-final.json
+
+# Misc
+.DS_Store
+*.pem
+*.env.local
+*.env.development.local
+*.env.test.local
+*.env.production.local
+
+# OS generated
+Thumbs.db
+ehthumbs.db
+Icon?
+Desktop.ini
+
+# Backup files
+*.bak
+*.swp
+*.swo
+*.tmp

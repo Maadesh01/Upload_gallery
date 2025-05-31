@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Post</title>
+    <style>
+        /* ...existing styles... */
+        .dropzone {
+            border: 2px dashed #007bff;
+            border-radius: 6px;
+            padding: 30px;
+            text-align: center;
+            color: #888;
+            margin-bottom: 15px;
+            background: #f9f9f9;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        .dropzone.dragover {
+            border-color: #0056b3;
+            background: #e6f0ff;
+        }
+        .preview-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+        .preview-list img {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Upload Post</h1>
+        {% if user.is_authenticated %}
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <label for="caption">Caption:</label>
+                <input type="text" name="caption" id="caption" required>
+                <label>Images:</label>
+                <div id="dropzone" class="dropzone">
+                    Drag & drop images here or click to select
+                    <input type="file" name="images" id="images" accept="image/*" multiple style="display:none;">
+                </div>
+                <div class="preview-list" id="preview-list"></div>
+                <input type="submit" value="Upload">
+            </form>
+            {% if message %}
+                <p class="message">{{ message }}</p>
+            {% endif %}
+            <script>
+                const dropzone = document.getElementById('dropzone');
+                const fileInput = document.getElementById('images');
+                const previewList = document.getElementById('preview-list');
+
+                dropzone.addEventListener('click', () => fileInput.click());
+
+                dropzone.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.add('dragover');
+                });
+
+                dropzone.addEventListener('dragleave', () => {
+                    dropzone.classList.remove('dragover');
+                });
+
+                dropzone.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    dropzone.classList.remove('dragover');
+                    fileInput.files = e.dataTransfer.files;
+                    showPreviews();
+                });
+
+                fileInput.addEventListener('change', showPreviews);
+
+                function showPreviews() {
+                    previewList.innerHTML = '';
+                    Array.from(fileInput.files).forEach(file => {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            previewList.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                }
+            </script>
+        {% else %}
+            <p class="error">Please <a href="{% url 'login' %}">log in</a> to upload a post.</p>
+        {% endif %}
+    </div>
+</body>
+</html>
